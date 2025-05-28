@@ -2,7 +2,7 @@
 
 namespace Sigma.Domain.Enums
 {
-    public enum StatusProjeto
+    public enum StatusProjetoEnum
     {
         [Display(Name = "Em Análise")]
         EmAnalise,

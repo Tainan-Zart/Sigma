@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Sigma.Application\Sigma.Application.csproj" />
+    <ProjectReference Include="..\Sigma.Infra.CrossCutting\Sigma.Infra.CrossCutting.csproj" />
   </ItemGroup>
 
 </Project>

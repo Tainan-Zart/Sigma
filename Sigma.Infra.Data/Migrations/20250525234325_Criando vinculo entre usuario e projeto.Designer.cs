@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Sigma.Infra.Data.Context;
@@ -11,9 +12,11 @@ using Sigma.Infra.Data.Context;
 namespace Sigma.Infra.Data.Migrations
 {
     [DbContext(typeof(SigmaContext))]
-    partial class SigmaContextModelSnapshot : ModelSnapshot
+    [Migration("20250525234325_Criando vinculo entre usuario e projeto")]
+    partial class Criandovinculoentreusuarioeprojeto
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,7 +42,7 @@ namespace Sigma.Infra.Data.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("datainicio");
 
-                    b.Property<DateTime>("DataPrevisaoTermino")
+                    b.Property<DateTime?>("DataPrevisaoTermino")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("dataprevisaotermino");
 

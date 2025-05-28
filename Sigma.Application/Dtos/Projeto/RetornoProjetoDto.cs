@@ -1,0 +1,24 @@
+﻿using Sigma.Domain.Enums;
+
+namespace Sigma.Application.Dtos.Projeto
+{
+    public class RetornoProjetoDto
+    {
+        public int Id { get; set; }
+        public string Nome { get; set; }
+
+        public string Descricao { get; set; }
+
+        public StatusProjetoEnum Status { get; set; }
+
+        public decimal Orcamento { get; set; }
+
+        public ClassificacaoRiscoProjetoEnum ClassificacaoRisco { get; set; }
+
+        public DateTime DataInicio { get; set; }
+
+        public DateTime DataPrevisaoTermino { get; set; }
+
+        public DateTime? DataTermino { get; set; }
+    }
+}

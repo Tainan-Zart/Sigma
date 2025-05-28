@@ -1,12 +1,17 @@
-﻿using Sigma.Application.Dtos;
-using Sigma.Domain.Dtos;
+﻿using Sigma.Application.Dtos.Projeto;
 
 namespace Sigma.Application.Interfaces
 {
     public interface IProjetoService
     {
-        Task<bool> Inserir(ProjetoNovoDto model);
+        Task<RetornoProjetoNovoDto> Inserir(ProjetoNovoDto model, string loginUsuario);
 
-        Task<List<ProjetoDto>> Buscar();
+        Task<List<RetornoProjetoDto>> Buscar(string loginUsuario);
+
+        Task<RetornoProjetoDto> BuscarPorNomeStatus(BuscaProjetoDto model, string loginUsuario);
+
+        Task<bool> Deletar(long id, string loginUsuario);
+
+        Task<bool> Atualizar(ProjetoDto model, string loginUsuario);
     }
 }

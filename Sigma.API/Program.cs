@@ -11,12 +11,13 @@ var configuration = builder.Configuration;
 
 builder.Services.AddApplicationContext(configuration.GetValue<string>("ConnectionStrings:Database")!);
 
+
 MapperConfiguration mapperConfiguration = new MapperConfiguration(mapperConfig => {
     mapperConfig.AddMaps(new[] { "Sigma.Application" });
 });
 builder.Services.AddSingleton(mapperConfiguration.CreateMapper());
 
-ContainerService.AddApplicationServicesCollentions(builder.Services);
+ContainerService.AddApplicationServicesCollentions(builder.Services, configuration);
 
 var app = builder.Build();
 
@@ -26,6 +27,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
