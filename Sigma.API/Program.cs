@@ -5,12 +5,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
 var configuration = builder.Configuration;
 
 builder.Services.AddApplicationContext(configuration.GetValue<string>("ConnectionStrings:Database")!);
-
 
 MapperConfiguration mapperConfiguration = new MapperConfiguration(mapperConfig => {
     mapperConfig.AddMaps(new[] { "Sigma.Application" });

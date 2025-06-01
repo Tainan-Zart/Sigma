@@ -7,9 +7,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Sigma.Application.Interfaces;
 using Sigma.Application.Services;
-using Sigma.Domain.Interfaces.Infra.Auth;
 using Sigma.Domain.Interfaces.Repositories;
 using Sigma.Infra.CrossCutting.Auth;
 using Sigma.Infra.Data.Context;
@@ -27,6 +27,7 @@ namespace Sigma.Infra.CrossCutting.IoC
             services.AddServices();
             services.AddRepositories();
             services.AddAuthentication(configuration);
+            services.AddSwagger();
             return services;
         }
 
@@ -45,13 +46,38 @@ namespace Sigma.Infra.CrossCutting.IoC
             return services;
         }
 
-        public static IServiceCollection AddValidators(this IServiceCollection services)
+        public static IServiceCollection AddSwagger(this IServiceCollection services)
         {
-            services.AddFluentValidationAutoValidation();
-            services.AddValidatorsFromAssembly(Assembly.Load("Sigma.Application"));
+            services.AddSwaggerGen(c =>
+            {
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = "Informe o token JWT no campo abaixo usando o formato: \"Bearer {seu_token}\".\n" +
+                   "Exemplo: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
+                });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new List<string>()
+                    }
+                });
+            });
+
             return services;
         }
-
 
         public static IServiceCollection AddAuthentication(this IServiceCollection services, IConfiguration configuration)
         {

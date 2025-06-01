@@ -25,7 +25,7 @@ namespace Sigma.API.Controllers
             return new JsonResult(await _projetoService.Inserir(model, loginUsuario));
         }
 
-        [HttpGet]
+        [HttpGet("buscar-todos")]
         public async Task<IActionResult> Buscar()
         {
             var loginUsuario = User.Identity.Name;

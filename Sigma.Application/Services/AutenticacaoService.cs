@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Sigma.Application.Dtos.Login;
 using Sigma.Application.Interfaces;
-using Sigma.Domain.Interfaces.Infra.Auth;
+using Sigma.Infra.CrossCutting.Auth;
 
 namespace Sigma.Application.Services
 {
@@ -31,7 +31,7 @@ namespace Sigma.Application.Services
 
             var chavePrivada = _configuration.GetValue<string>("Jwt:Private-Key");
 
-            var token = _authToken.GetToken(usuario,  chavePrivada);
+            var token = _authToken.GetToken(usuario.Login,  chavePrivada);
 
             var retornoToken = new TokenDTo
             {

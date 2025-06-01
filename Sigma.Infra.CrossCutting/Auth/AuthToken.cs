@@ -2,14 +2,12 @@
 using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
-using Sigma.Domain.Entities;
-using Sigma.Domain.Interfaces.Infra.Auth;
 
 namespace Sigma.Infra.CrossCutting.Auth
 {
     public class AuthToken : IAuthToken
     {
-        public string GetToken(Usuario usuario, string chavePrivada)
+        public string GetToken(string loginUsuario, string chavePrivada)
         {
             var handler = new JwtSecurityTokenHandler();
 
@@ -21,7 +19,7 @@ namespace Sigma.Infra.CrossCutting.Auth
 
             var claims = new[]
             {
-                new Claim(ClaimTypes.Name, usuario.Login),
+                new Claim(ClaimTypes.Name, loginUsuario),
             };
 
             var descricaoToken = new SecurityTokenDescriptor
